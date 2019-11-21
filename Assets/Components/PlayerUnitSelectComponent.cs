@@ -2,6 +2,5 @@
 using System;
 
 
-public struct PlayerUnitSelect : IComponentData
-{
+public struct PlayerUnitSelect : IComponentData {
 }
