@@ -87,6 +87,7 @@ public class UnitSpawnerSystem : JobComponentSystem {
                 for (int y = 0; y < spawner.CountY; y++) {
                     var instance = CommandBuffer.Instantiate(spawner.Prefab);
                     var position = math.transform(location.Value, new float3(x * 2, 0, y * 2));
+                    var maxHealth = 2;
 
                     //TODO: Eventually switch to the new Unity.Physics AABB 
                     var aabb = new AABB {
@@ -100,6 +101,9 @@ public class UnitSpawnerSystem : JobComponentSystem {
                     CommandBuffer.AddComponent(instance, aabb);
                     CommandBuffer.AddComponent(instance, new PlayerInput());
                     CommandBuffer.AddComponent(instance, new UnitNavAgent());
+
+
+                    CommandBuffer.AddComponent(instance, new HealthComponent { maxHealth = maxHealth, health = maxHealth });
                 }
             }
             CommandBuffer.DestroyEntity(entity);

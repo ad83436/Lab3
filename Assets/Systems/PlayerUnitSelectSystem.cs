@@ -36,7 +36,6 @@ public class PlayerUnitSelectSystem : JobComponentSystem {
 
                 }
             }
-
         }
     }
 

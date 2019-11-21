@@ -19,7 +19,6 @@ public class NavAgentMovementSystem : JobComponentSystem {
         }
     }
 
-
     protected override JobHandle OnUpdate(JobHandle inputDeps) {
         var job = new NavAgentMovementJob {
             dT = Time.deltaTime,
