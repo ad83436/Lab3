@@ -14,7 +14,7 @@ public class PlayerUnitMovementSystem : JobComponentSystem {
            if (pInput.RightClick) {
                 navAgent.finalDestination = mousePos;
                 navAgent.agentStatus = NavAgentStatus.Moving;
-                rotation.Value = Quaternion.LookRotation(new Vector3(mousePos.x, mousePos.y, mousePos.z), new Vector3());
+                rotation.Value = Quaternion.LookRotation(new Vector3(navAgent.finalDestination.x,navAgent.finalDestination.y,navAgent.finalDestination.z));
            }
         }
     }
@@ -23,12 +23,13 @@ public class PlayerUnitMovementSystem : JobComponentSystem {
         var mousePos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit)) {
-            if(hit.collider != null) {
+            if (hit.collider != null) {
                 mousePos = new float3(hit.point.x, 0, hit.point.z);
             }
         }
         var job = new PlayerUnitMovementJob {
             mousePos = mousePos
+
         };
         return job.Schedule(this, inputDeps);
     }
