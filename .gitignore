@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Components/BulletSpawner.cs.meta
+*.meta
+Assets/Components/Bullet.cs.meta
