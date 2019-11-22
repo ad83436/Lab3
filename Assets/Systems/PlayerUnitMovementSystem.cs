@@ -30,7 +30,6 @@ public class PlayerUnitMovementSystem : JobComponentSystem {
         }
         var job = new PlayerUnitMovementJob {
             mousePos = mousePos
-
         };
         return job.Schedule(this, inputDeps);
     }
