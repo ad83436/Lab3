@@ -11,5 +11,4 @@ public enum NavAgentStatus {
 public struct UnitNavAgent : IComponentData {
     public float3 finalDestination;
     public NavAgentStatus agentStatus;
-    public float3 rotation;
 }
