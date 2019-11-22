@@ -6,15 +6,16 @@ using Unity.Collections;
 using Unity.Transforms;
 
 public class PlayerUnitMovementSystem : JobComponentSystem {
-    public struct PlayerUnitMovementJob : IJobForEach<PlayerInput, UnitNavAgent, PlayerUnitSelect, Rotation> {
+    public struct PlayerUnitMovementJob : IJobForEach<PlayerInput, UnitNavAgent, PlayerUnitSelect, Rotation,Translation> {
         public float dT;
         public float3 mousePos;
 
-        public void Execute([ReadOnly] ref PlayerInput pInput, ref UnitNavAgent navAgent, [ReadOnly] ref PlayerUnitSelect selected, ref Rotation rotation) {
+        public void Execute([ReadOnly] ref PlayerInput pInput, ref UnitNavAgent navAgent, [ReadOnly] ref PlayerUnitSelect selected, ref Rotation rotation,[ReadOnly] ref Translation position) {
            if (pInput.RightClick) {
                 navAgent.finalDestination = mousePos;
                 navAgent.agentStatus = NavAgentStatus.Moving;
-                rotation.Value = Quaternion.LookRotation(new Vector3(navAgent.finalDestination.x,navAgent.finalDestination.y,navAgent.finalDestination.z));
+                float3 direction = math.normalize(navAgent.finalDestination - position.Value);
+                rotation.Value = Quaternion.LookRotation(new Vector3(direction.x,direction.y,direction.z));
            }
         }
     }
