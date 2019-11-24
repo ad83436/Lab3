@@ -103,6 +103,7 @@ public class UnitSpawnerSystem : JobComponentSystem {
                     CommandBuffer.AddComponent(instance, new PlayerInput());
                     CommandBuffer.AddComponent(instance, new UnitNavAgent());
                     CommandBuffer.AddComponent(instance, new HealthComponent { maxHealth = maxHealth, health = maxHealth });
+                    CommandBuffer.AddComponent(instance, new BulletSpawner());
                 }
             }
             CommandBuffer.DestroyEntity(entity);

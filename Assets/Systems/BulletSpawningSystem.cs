@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+[UpdateInGroup(typeof(SimulationSystemGroup))]
 public class BulletSpawningSystem : JobComponentSystem {
     BeginInitializationEntityCommandBufferSystem m_EntityCommandBufferSystem;
 
@@ -19,14 +20,15 @@ public class BulletSpawningSystem : JobComponentSystem {
         public Vector3 mousePosition;
 
         public void Execute(Entity entity, int index, [ReadOnly] ref BulletSpawner bullet, [ReadOnly] ref PlayerInput pInput, [ReadOnly] ref LocalToWorld location) {
+            Debug.Log("TEST");
             if (pInput.RightClick) {
                 var instance = CommandBuffer.Instantiate(bullet.Prefab);
                 var position = math.transform(location.Value, mousePosition);
                 //TODO: Eventually switch to the new Unity.Physics AABB 
                 var aabb = new AABB {
                     //0.5f will represent halfwidth for now
-                    max = position + 0.5f,
-                    min = position - 0.5f,
+                    max = position + 0.1f,
+                    min = position - 0.1f,
                 };
                 CommandBuffer.AddComponent(instance, aabb);
                 CommandBuffer.SetComponent(instance, new Translation { Value = position });
